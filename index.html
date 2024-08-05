@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday</title>
+    <style>
+        body {
+           
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            transition: background-color 3s; /* Smooth transition over 3 seconds */
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.5); /* Initial low opacity background */
+            min-height: 100vh; /* Ensure vertical scrollability */
+            position: relative; /* Needed for absolutely positioned hearts */
+        }
+
+        h1{
+            font-size: 80px;
+            color: rgb(220, 20, 143);
+        }
+
+
+        #hidden-message {
+            display: none;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-top: 0px;
+            font-size: 40px;
+            transition: color 1s;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .heart {
+            position: fixed;
+            color: rgba(255, 0, 0, 0.7);
+            font-size: 24px;
+            animation: move 5s linear infinite;
+        }
+
+        @keyframes move {
+            from {
+                transform: translateY(100vh);
+            }
+            to {
+                transform: translateY(-100vh);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Happy Birthday My Lovely Sister</h1>
+    <img src="gift-box-closed.png" alt="Gift Box" id="gift-box" style="cursor: pointer; width: 400px;">
+    <div id="hidden-message">
+        Surprise!<br>I wish you a life filled with love, joy, and all the things you cherish.<br> Having you as a sister is the best thing anyone could ask for. Let's have a wonderful year together!
+    </div>
+
+    <script>
+        const giftBox = document.getElementById('gift-box');
+        const hiddenMessage = document.getElementById('hidden-message');
+
+        giftBox.addEventListener('click', () => {
+            hiddenMessage.style.display = 'block';
+            setInterval(() => {
+                hiddenMessage.style.color = getRandomColorWithOpacity(1); // Full opacity for hidden message
+            }, 1000);
+        });
+
+        setInterval(() => {
+            document.body.style.backgroundColor = getRandomColorWithOpacity(0.5); // Low opacity for background
+        }, 3000); // Change color every 3 seconds for a smoother transition
+
+        function getRandomColorWithOpacity(opacity) {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgba(${r},${g},${b},${opacity})`;
+        }
+
+        // Create random heart elements
+        function createHearts() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's'; // 3 to 6 seconds
+            heart.innerHTML = '❤️';
+            document.body.appendChild(heart);
+
+            // Remove heart after animation ends
+            setTimeout(() => {
+                heart.remove();
+            }, 6000); // Match the longest animation duration
+        }
+
+        // Create hearts at intervals
+        setInterval(createHearts, 500); // Create a heart every 0.5 seconds
+    </script>
+</body>
+</html>
